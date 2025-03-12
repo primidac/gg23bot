@@ -3,7 +3,7 @@ import os
 import json
 from alith import Agent
 from dotenv import load_dotenv
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackContext
 
 
 # load the environment variables
@@ -58,7 +58,7 @@ def main() -> None:
     # add the /start command handler
     dispatcher.add_handler(CommandHandler("start", start))
     # add the message handler
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, analyze_project))
+    dispatcher.add_handler(MessageHandler(filters.text & ~filters.command, analyze_project))
 
     # start the bot
     updater.start_polling()
