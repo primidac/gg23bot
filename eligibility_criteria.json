@@ -1,0 +1,18 @@
+{
+    "General Criteria": {
+        "Affiliation": "Projects/Individuals must be affiliated with a Web3 B<>rder/ess Tech Club in a university.",
+        "Community Presence": "Projects/Individuals should have an active community/social presence and prioritize human and organic activities.",
+        "Cipher Session Attendance": "Developers must have attended at least one of the B<>rder/ess Cipher Sessions."
+    },
+    "Web3 Education and Onboarding Criteria": {
+        "Proof of Work": "Projects/Individuals must have clear Proof Of Work (PoW) on Blockchain Education activities in line with the Round Funding Focus.",
+        "Impact Measurement": "Projects must have a detailed method of impact measurements for education and onboarding, including quantitative (e.g., number of onboarded users, used tools) and qualitative (e.g., testimonials, event references) PoW.",
+        "Scalability": "Projects must be scalable and sustainable to their communities in the long run."
+    },
+    "Round Funding Focus": [
+        "Educating and onboarding students into Web3",
+        "Building open-source blockchain tools and resources",
+        "Organizing hackathons, boot camps, GG donation activations, and tech meetups",
+        "Showcasing blockchain applications through creative and technical presentation"
+    ]
+}
