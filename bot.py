@@ -1,9 +1,14 @@
 import os
 import json
+import logging
 from alith import Agent
 from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
+
+# Enable logging
+logging.basicConfig(format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Load environment variables
 load_dotenv()
@@ -35,17 +40,24 @@ async def start(update: Update, context: CallbackContext) -> None:
 async def analyze_project(update: Update, context: CallbackContext) -> None:
     """Analyze the project and return the eligibility criteria."""
     user_text = update.message.text
+    logger.info(f"Received message: {user_text}")
 
-    # Check eligibility criteria
-    for category, rules in criteria.items():
-        for key, requirement in rules.items():
-            if key.lower() in user_text.lower():
-                await update.message.reply_text(f"Eligibility Check: {requirement}")
-                return  # Stop checking further if a match is found
+    try:
+        # Check eligibility criteria
+        for category, rules in criteria.items():
+            for key, requirement in rules.items():
+                if key.lower() in user_text.lower():
+                    await update.message.reply_text(f"Eligibility Check: {requirement}")
+                    return  # Stop checking further if a match is found
 
-    # If criteria are not found, use AI to analyze
-    ai_response = agent.prompt(user_text)
-    await update.message.reply_text(ai_response)
+        # If criteria are not found, use AI to analyze
+        ai_response = await agent.prompt(user_text)  # Ensure it's awaited
+        logger.info(f"AI response: {ai_response}")
+        
+        await update.message.reply_text(ai_response)
+    except Exception as e:
+        logger.error(f"Error processing message: {e}")
+        await update.message.reply_text("Sorry, something went wrong. Please try again.")
 
 # Main function to run the bot
 def main() -> None:
@@ -57,7 +69,7 @@ def main() -> None:
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, analyze_project))
 
     # Start polling
-    print("Bot is running...")
+    logger.info("Bot is running...")
     app.run_polling()
 
 if __name__ == "__main__":
